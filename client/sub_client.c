@@ -75,9 +75,10 @@ void my_message_callback(struct mosquitto *mosq, void *obj, const struct mosquit
 			if(res) return;
 		}
 	}
-
+	struct timespec current;
+	clock_gettime(CLOCK_REALTIME, &current);
+	printf("%lld.%.9ld \n", (long long)current.tv_sec, current.tv_nsec);
 	print_message(cfg, message);
-
 	if(cfg->msg_count>0){
 		msg_count++;
 		if(cfg->msg_count == msg_count){

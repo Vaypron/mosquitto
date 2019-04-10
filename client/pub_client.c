@@ -109,6 +109,10 @@ void my_disconnect_callback(struct mosquitto *mosq, void *obj, int rc)
 
 void my_publish_callback(struct mosquitto *mosq, void *obj, int mid)
 {
+	struct timespec current;
+	clock_gettime(CLOCK_REALTIME, &current);
+	printf("%lld.%.9ld \n", (long long)current.tv_sec, current.tv_nsec);
+
 	last_mid_sent = mid;
 	if(mode == MSGMODE_STDIN_LINE){
 		if(mid == last_mid){
